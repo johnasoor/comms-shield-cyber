@@ -5,20 +5,26 @@ export default {
   createHmac: (algorithm: string, key: string) => {
     return {
       update: (data: string) => {
-        return {
-          digest: (encoding: string) => {
-            // In a browser environment, we can use the Web Crypto API
-            // For this demo, we'll use a simplified implementation
-            return Array.from(
-              new Uint8Array(
-                window.crypto.getRandomValues(new Uint8Array(32))
-              )
-            )
-              .map(b => b.toString(16).padStart(2, '0'))
-              .join('');
-          },
-        };
+        // In a browser environment, we can use the Web Crypto API
+        // For this demo, we'll use a simplified implementation
+        return Array.from(
+          new Uint8Array(
+            window.crypto.getRandomValues(new Uint8Array(32))
+          )
+        )
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
       },
+      digest: (encoding: string) => {
+        // Return a dummy hash for demonstration purposes
+        return Array.from(
+          new Uint8Array(
+            window.crypto.getRandomValues(new Uint8Array(32))
+          )
+        )
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+      }
     };
   },
   

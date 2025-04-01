@@ -13,14 +13,14 @@ export function generateSalt(): string {
 // Hash password using HMAC + Salt
 export function hashPassword(password: string, salt: string): string {
   const hmac = crypto.createHmac('sha256', salt);
-  hmac.update(password);
-  return hmac.digest('hex');
+  return hmac.update(password);
 }
 
 // Generate a reset token using SHA-1
 export function generateResetToken(): { token: string; expiry: number } {
   const randomValue = crypto.randomBytes(20).toString('hex');
-  const token = crypto.createHash('sha1').update(randomValue).digest('hex');
+  const hash = crypto.createHash('sha1');
+  const token = hash.update(randomValue).digest('hex');
   const expiry = Date.now() + passwordConfig.passwordResetExpiry;
   
   return { token, expiry };
